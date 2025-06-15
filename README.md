@@ -13,13 +13,21 @@
   
   ### 🎬 **Live Demo**
   
+  <img src="15.06.2025_11.27.12_REC.gif" alt="FeedVox AI Demo GIF" width="800">
+  
+  <p align="center">
+    <em>🎯 Quick GIF Preview: See FeedVox AI workflow in action</em>
+  </p>
+  
+  <br/>
+  
   <video width="800" controls>
     <source src="video demo/15.06.2025_11.27.12_REC.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   
   <p align="center">
-    <em>📹 Watch FeedVox AI in action: Audio upload → AI transcription → Medical note generation → Automatic coding</em>
+    <em>📹 Full Video Demo: Audio upload → AI transcription → Medical note generation → Automatic coding</em>
   </p>
   
   <br/>
