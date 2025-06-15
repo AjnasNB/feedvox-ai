@@ -25,7 +25,7 @@
     <source src="video demo/15.06.2025_11.27.12_REC.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  
+  <a src="https://github.com/AjnasNB/feedvox-ai/blob/master/video%20demo/15.06.2025_11.27.12_REC.mp4" >https://github.com/AjnasNB/feedvox-ai/blob/master/video%20demo/15.06.2025_11.27.12_REC.mp4</a>
   <p align="center">
     <em>📹 Full Video Demo: Audio upload → AI transcription → Medical note generation → Automatic coding</em>
   </p>
