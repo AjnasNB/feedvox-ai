@@ -18,11 +18,15 @@ class LLMService:
     
     def __init__(self, config_path: str = "config.yaml"):
         """Initialize LLM service with configuration"""
-        self.api_key = "2ZKN48Y-F1M4D6T-GBX3F4K-DQFMEP7"
-        self.base_url = "http://localhost:3001/api/v1"
-        self.workspace_slug = "qc"
-        self.stream = False
-        self.timeout = 60
+        self.config = self._load_config(config_path)
+        
+        # Get LLM configuration from config.yaml
+        llm_config = self.config.get("llm", {})
+        self.api_key = llm_config.get("api_key", "")
+        self.base_url = llm_config.get("base_url", "http://localhost:3001/api/v1")
+        self.workspace_slug = llm_config.get("workspace_slug", "medical")
+        self.stream = llm_config.get("stream", False)
+        self.timeout = llm_config.get("stream_timeout", 60)
         
         self.chat_url = f"{self.base_url}/workspace/{self.workspace_slug}/chat"
         self.headers = {
@@ -32,6 +36,50 @@ class LLMService:
         }
         
         logger.info(f"LLM service initialized for workspace: {self.workspace_slug}")
+    
+    def _load_config(self, config_path: str) -> Dict[str, Any]:
+        """Load configuration from file or create default"""
+        try:
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config = yaml.safe_load(f)
+                logger.info(f"Loaded configuration from {config_path}")
+                return config
+            else:
+                logger.warning(f"Config file {config_path} not found, using defaults")
+                return self._get_default_config()
+        except Exception as e:
+            logger.error(f"Error loading config: {e}, using defaults")
+            return self._get_default_config()
+    
+    def _get_default_config(self) -> Dict[str, Any]:
+        """Get default configuration"""
+        return {
+            "llm": {
+                "api_key": "",
+                "base_url": "http://localhost:3001/api/v1",
+                "workspace_slug": "medical",
+                "stream": False,
+                "stream_timeout": 60
+            }
+        }
+    
+    def update_config(self, **kwargs) -> None:
+        """Update configuration dynamically"""
+        for key, value in kwargs.items():
+            if key == "api_key":
+                self.api_key = value
+                self.headers["Authorization"] = f"Bearer {value}"
+            elif key == "base_url":
+                self.base_url = value
+                self.chat_url = f"{self.base_url}/workspace/{self.workspace_slug}/chat"
+            elif key == "workspace_slug":
+                self.workspace_slug = value
+                self.chat_url = f"{self.base_url}/workspace/{value}/chat"
+            elif key == "timeout":
+                self.timeout = value
+        
+        logger.info(f"Updated LLM service configuration: {list(kwargs.keys())}")
     
     async def extract_medical_note(
         self, 

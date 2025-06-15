@@ -1,41 +1,128 @@
 <div align="center">
-  <img src="deskyop-app/assets/icon.png" alt="FeedVox AI Logo" width="200" height="200">
+  
+  # 🩺 **FeedVox AI**
+  ### *Advanced Medical Transcription & Coding Suite*
+  
+  <p align="center">
+    <strong>🤖 AI-Powered Medical Documentation System</strong><br/>
+    Transform medical audio recordings into structured clinical notes with automatic<br/>
+    <strong>ICD-10 • CPT • SNOMED-CT</strong> coding using cutting-edge AI technology
+  </p>
+  
+  <br/>
+  
+  ### 🎬 **Live Demo**
+  
+  <img src="15.06.2025_11.27.12_REC.gif" alt="FeedVox AI Demo" width="800">
+  
+  <br/>
+  
+  <p align="center">
+    <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=for-the-badge">
+    <img alt="Python" src="https://img.shields.io/badge/Python-3.11+-green?style=for-the-badge&logo=python&logoColor=white">
+    <img alt="AI" src="https://img.shields.io/badge/AI-OpenAI%20Whisper-orange?style=for-the-badge&logo=openai&logoColor=white">
+    <img alt="NPU" src="https://img.shields.io/badge/NPU-Snapdragon%20X%20Elite-red?style=for-the-badge&logo=qualcomm&logoColor=white">
+  </p>
+  
+  <p align="center">
+    <a href="#-quick-start-summary"><img src="https://img.shields.io/badge/🚀-Quick%20Start-success?style=for-the-badge"></a>
+    <a href="#-application-usage"><img src="https://img.shields.io/badge/📱-Usage%20Guide-informational?style=for-the-badge"></a>
+    <a href="#-api-documentation"><img src="https://img.shields.io/badge/🔗-API%20Docs-important?style=for-the-badge"></a>
+    <a href="#-troubleshooting"><img src="https://img.shields.io/badge/🛠️-Support-warning?style=for-the-badge"></a>
+  </p>
+  
+  <br/>
+  
+  ---
+  
 </div>
-# 🏥 FeedVox AI - Advanced Medical Transcription & Coding Suite
-
-> **AI-Powered Medical Documentation System** - Transform medical audio recordings into structured clinical notes with automatic ICD-10, CPT, and SNOMED-CT coding using cutting-edge AI technology.
 
 ## 📋 Table of Contents
 
-- [Purpose & Overview](#-purpose--overview)
-- [Hardware Requirements](#-hardware-requirements)
-- [Software Requirements](#-software-requirements)
-- [Installation Guide](#-installation-guide)
-- [AnythingLLM Setup](#-anythingllm-setup)
-- [Application Usage](#-application-usage)
-- [API Documentation](#-api-documentation)
-- [Troubleshooting](#-troubleshooting)
-- [Performance Optimization](#-performance-optimization)
-- [License & Support](#-license--support)
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 **Getting Started**
+- [🔬 Purpose & Overview](#-purpose--overview)
+- [💻 Hardware Requirements](#-hardware-requirements)
+- [🛠️ Software Requirements](#-software-requirements)
+- [🚀 Installation Guide](#-installation-guide)
+- [🤖 AnythingLLM Setup](#-anythingllm-setup)
+
+</td>
+<td width="50%">
+
+### 📱 **Usage & Support**
+- [📱 Application Usage](#-application-usage)
+- [🔗 API Documentation](#-api-documentation)
+- [🔧 Troubleshooting](#-troubleshooting)
+- [⚡ Performance Optimization](#-performance-optimization)
+- [📄 License & Support](#-license--support)
+
+</td>
+</tr>
+</table>
 
 ## 🎯 Purpose & Overview
 
-FeedVox AI is a comprehensive medical documentation platform designed to streamline clinical workflows by automatically converting audio recordings into structured medical notes with accurate medical coding. The system combines:
+<div align="center">
+  <h3>🏥 <strong>Comprehensive Medical Documentation Platform</strong></h3>
+  <p><em>Streamline clinical workflows by automatically converting audio recordings into structured medical notes with accurate medical coding</em></p>
+</div>
 
-### 🔬 **Core Capabilities:**
-- **🎤 High-Accuracy Speech Recognition** - OpenAI Whisper-based medical audio transcription
-- **🧠 AI Medical Note Extraction** - Intelligent parsing of medical information using LLM
-- **🏥 Automatic Medical Coding** - ICD-10, CPT, and SNOMED-CT code assignment
-- **💻 Cross-Platform Desktop App** - Beautiful Electron-based user interface
-- **🔗 REST API Integration** - Complete backend API for healthcare systems
-- **📊 Real-Time Processing** - Live progress tracking and status updates
+<br/>
 
-### 🎯 **Target Use Cases:**
-- Medical practitioners documenting patient encounters
-- Healthcare facilities automating clinical documentation
-- Medical coders seeking AI-assisted code assignment
-- Healthcare IT systems requiring transcription integration
-- Clinical research requiring structured data extraction
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🔬 **Core Capabilities**
+
+🎤 **High-Accuracy Speech Recognition**  
+*OpenAI Whisper-based medical audio transcription*
+
+🧠 **AI Medical Note Extraction**  
+*Intelligent parsing of medical information using LLM*
+
+🏥 **Automatic Medical Coding**  
+*ICD-10, CPT, and SNOMED-CT code assignment*
+
+💻 **Cross-Platform Desktop App**  
+*Beautiful Electron-based user interface*
+
+🔗 **REST API Integration**  
+*Complete backend API for healthcare systems*
+
+📊 **Real-Time Processing**  
+*Live progress tracking and status updates*
+
+</td>
+<td width="50%" valign="top">
+
+### 🎯 **Target Use Cases**
+
+👨‍⚕️ **Medical Practitioners**  
+*Documenting patient encounters efficiently*
+
+🏥 **Healthcare Facilities**  
+*Automating clinical documentation workflows*
+
+📋 **Medical Coders**  
+*AI-assisted code assignment and validation*
+
+🖥️ **Healthcare IT Systems**  
+*Transcription integration and interoperability*
+
+🔬 **Clinical Research**  
+*Structured data extraction from recordings*
+
+📊 **Quality Assurance**  
+*Standardized documentation processes*
+
+</td>
+</tr>
+</table>
 
 ## 💻 Hardware Requirements
 
