@@ -1,3 +1,6 @@
+<div align="center">
+  <img src="deskyop-app/assets/icon.png" alt="FeedVox AI Logo" width="200" height="200">
+</div>
 # 🏥 FeedVox AI - Advanced Medical Transcription & Coding Suite
 
 > **AI-Powered Medical Documentation System** - Transform medical audio recordings into structured clinical notes with automatic ICD-10, CPT, and SNOMED-CT coding using cutting-edge AI technology.
