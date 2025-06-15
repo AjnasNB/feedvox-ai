@@ -1,0 +1,147 @@
+{
+  "name": "feedvox-ai-desktop",
+  "version": "1.0.0",
+  "description": "FeedVox AI - Medical Transcription & Coding Desktop Application",
+  "main": "main.js",
+  "homepage": "https://feedvox.ai",
+  "author": {
+    "name": "FeedVox AI",
+    "email": "support@feedvox.ai"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "cross-env NODE_ENV=development electron . --debug",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --publish=never",
+    "dist:win": "electron-builder --win --publish=never",
+    "dist:mac": "electron-builder --mac --publish=never",
+    "dist:linux": "electron-builder --linux --publish=never",
+    "postinstall": "electron-builder install-app-deps",
+    "clean": "rimraf dist build",
+    "rebuild": "npm run clean && npm install && npm run build",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4",
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.1.4",
+    "node-fetch": "^3.3.2"
+  },
+  "build": {
+    "appId": "com.feedvox.ai.desktop",
+    "productName": "FeedVox AI",
+    "copyright": "Copyright © 2024 FeedVox AI",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      "!build/**"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "artifactName": "${productName}.${ext}"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.medical",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        },
+        {
+          "target": "deb",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Office",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FeedVox AI"
+    },
+    "dmg": {
+      "title": "FeedVox AI ${version}",
+      "icon": "assets/icon.icns",
+      "background": "assets/dmg-background.png",
+      "window": {
+        "width": 540,
+        "height": 380
+      },
+      "contents": [
+        {
+          "x": 140,
+          "y": 200,
+          "type": "file"
+        },
+        {
+          "x": 400,
+          "y": 200,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "feedvox-ai",
+      "repo": "feedvox-desktop"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+} 

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedVox AI - Medical Transcription & Coding</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="assets/icon.png" alt="FeedVox AI Logo">
+                    <h1>FeedVox AI</h1>
+                </div>
+                <div class="status-indicator" id="backend-status">
+                    <div class="status-dot"></div>
+                    <span>Connecting...</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn btn-secondary" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="btn btn-secondary" id="minimize-btn">
+                    <i class="fas fa-window-minimize"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content - Upload Page -->
+        <main class="main-content" id="upload-page">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-card">
+                    <div class="upload-header">
+                        <h2><i class="fas fa-file-upload"></i> Audio Upload</h2>
+                        <p>Upload your medical audio file for transcription and coding</p>
+                    </div>
+                    
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-placeholder" id="upload-placeholder">
+                            <i class="fas fa-microphone-alt"></i>
+                            <h3>Record or upload audio</h3>
+                            <p>Click record to start recording or <button class="btn-link" id="browse-btn">browse files</button></p>
+                            <small>Supported formats: MP3, WAV, M4A, FLAC, OGG, AAC, WebM</small>
+                        </div>
+                        
+                        <div class="file-selected" id="file-selected" style="display: none;">
+                            <div class="file-info">
+                                <i class="fas fa-file-audio"></i>
+                                <div class="file-details">
+                                    <div class="file-name" id="file-name">No file selected</div>
+                                    <div class="file-meta">
+                                        <span class="file-size" id="file-size">0 MB</span>
+                                        <span class="file-type" id="file-type">Unknown</span>
+                                        <span class="file-duration" id="file-duration">--:--</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-actions">
+                                <button class="btn btn-sm btn-secondary" id="preview-audio" style="display: none;">
+                                    <i class="fas fa-play"></i>
+                                    Preview
+                                </button>
+                                <button class="btn btn-sm btn-danger" id="remove-file">
+                                    <i class="fas fa-times"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="recording-controls">
+                            <button class="btn btn-danger" id="record-btn">
+                                <i class="fas fa-microphone"></i>
+                                Start Recording
+                            </button>
+                            <button class="btn btn-warning" id="stop-btn" style="display: none;">
+                                <i class="fas fa-stop"></i>
+                                Stop Recording
+                            </button>
+                        </div>
+                        
+                        <div class="recording-indicator" id="recording-indicator" style="display: none;">
+                            <div class="recording-pulse"></div>
+                            <span>Recording... </span>
+                            <span id="recording-timer">00:00</span>
+                        </div>
+                        
+                        <div class="upload-progress hidden" id="upload-progress">
+                            <div class="progress-info">
+                                <span id="progress-text">Processing...</span>
+                                <span id="progress-percent">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-actions">
+                        <button class="btn btn-primary" id="process-btn" disabled>
+                            <i class="fas fa-play"></i>
+                            Process Audio
+                        </button>
+                        <button class="btn btn-secondary" id="clear-btn" disabled>
+                            <i class="fas fa-trash"></i>
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Processing Page -->
+        <main class="main-content hidden" id="processing-page">
+            <div class="processing-container">
+                <div class="processing-card">
+                    <div class="processing-header">
+                        <h2 id="processing-title">Processing Audio...</h2>
+                        <p id="processing-subtitle">Please wait while we process your medical audio</p>
+                    </div>
+                    
+                    <div class="processing-animation">
+                        <div class="circular-loader">
+                            <div class="loader-circle"></div>
+                            <div class="loader-circle"></div>
+                            <div class="loader-circle"></div>
+                        </div>
+                        <div class="processing-steps">
+                            <div class="step active" id="step-upload">
+                                <i class="fas fa-upload"></i>
+                                <span>Uploading Audio</span>
+                            </div>
+                            <div class="step" id="step-transcribe">
+                                <i class="fas fa-file-text"></i>
+                                <span>Transcribing</span>
+                            </div>
+                            <div class="step" id="step-extract">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>Extracting Notes</span>
+                            </div>
+                            <div class="step" id="step-codes">
+                                <i class="fas fa-code"></i>
+                                <span>Medical Codes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="processing-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value" id="processing-status">Initializing...</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value" id="processing-duration">--:--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Progress:</span>
+                            <span class="detail-value" id="processing-progress">0%</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary" id="cancel-processing" style="margin-top: 2rem;">
+                        <i class="fas fa-times"></i>
+                        Cancel Processing
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Results Page -->
+        <main class="main-content hidden" id="results-page">
+            <!-- Progressive Results Navigation -->
+            <div class="results-navigation">
+                <button class="nav-step completed" id="nav-transcript" data-step="transcript">
+                    <i class="fas fa-file-text"></i>
+                    <span>Transcript</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-step" id="nav-notes" data-step="notes">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Medical Notes</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-step" id="nav-codes" data-step="codes">
+                    <i class="fas fa-code"></i>
+                    <span>Medical Codes</span>
+                    <div class="nav-indicator"></div>
+                </button>
+            </div>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results-section">
+                <!-- Transcript Tab -->
+                <div class="tab-content active" id="transcript-tab">
+                    <div class="content-card">
+                        <div class="content-header">
+                            <h3><i class="fas fa-file-alt"></i> Transcription</h3>
+                            <div class="header-actions">
+                                <button class="btn btn-secondary btn-sm" id="copy-transcript">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="btn btn-primary btn-sm" id="next-to-notes" style="display: none;">
+                                    <i class="fas fa-arrow-right"></i> Extract Notes
+                                </button>
+                            </div>
+                        </div>
+                        <div class="transcript-content" id="transcript-content">
+                            <p class="placeholder">Transcription will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Note Tab -->
+                <div class="tab-content" id="medical-note-tab">
+                    <div class="content-card">
+                        <div class="content-header">
+                            <h3><i class="fas fa-stethoscope"></i> Medical Note</h3>
+                            <div class="header-actions">
+                                <div class="extraction-status" id="note-extraction-status" style="display: none;">
+                                    <div class="mini-loader"></div>
+                                    <span>Extracting medical information...</span>
+                                </div>
+                                <button class="btn btn-primary btn-sm" id="save-note" style="display: none;">
+                                    <i class="fas fa-save"></i> Save
+                                </button>
+                                <button class="btn btn-secondary btn-sm" id="copy-note" style="display: none;">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="btn btn-primary btn-sm" id="next-to-codes" style="display: none;">
+                                    <i class="fas fa-arrow-right"></i> Get Medical Codes
+                                </button>
+                            </div>
+                        </div>
+                        <div class="medical-note-content" id="medical-note-content">
+                            <div class="note-section">
+                                <h4>Chief Complaint</h4>
+                                <div class="note-field" contenteditable="true" id="chief-complaint">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>History of Present Illness</h4>
+                                <div class="note-field" contenteditable="true" id="history-present-illness">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Past Medical History</h4>
+                                <div class="note-field" contenteditable="true" id="past-medical-history">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Medications</h4>
+                                <div class="note-field" contenteditable="true" id="medications">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Allergies</h4>
+                                <div class="note-field" contenteditable="true" id="allergies">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Social History</h4>
+                                <div class="note-field" contenteditable="true" id="social-history">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Family History</h4>
+                                <div class="note-field" contenteditable="true" id="family-history">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Vital Signs</h4>
+                                <div class="note-field" contenteditable="true" id="vital-signs">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Physical Examination</h4>
+                                <div class="note-field" contenteditable="true" id="physical-exam">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Assessment</h4>
+                                <div class="note-field" contenteditable="true" id="assessment">Not extracted yet</div>
+                            </div>
+                            <div class="note-section">
+                                <h4>Plan</h4>
+                                <div class="note-field" contenteditable="true" id="plan">Not extracted yet</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Codes Tab -->
+                <div class="tab-content" id="medical-codes-tab">
+                    <div class="content-card">
+                        <div class="content-header">
+                            <h3><i class="fas fa-code"></i> Medical Codes</h3>
+                            <div class="header-actions">
+                                <div class="extraction-status" id="codes-extraction-status" style="display: none;">
+                                    <div class="mini-loader"></div>
+                                    <span>Extracting medical codes...</span>
+                                </div>
+                                <div class="code-summary" id="code-summary">
+                                    <span class="code-count" id="icd-count">0 ICD</span>
+                                    <span class="code-count" id="cpt-count">0 CPT</span>
+                                    <span class="code-count" id="snomed-count">0 SNOMED</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="medical-codes-content" id="medical-codes-content">
+                            <div class="codes-section">
+                                <h4><i class="fas fa-diagnoses"></i> ICD-10 Codes</h4>
+                                <div class="codes-list" id="icd-codes">
+                                    <p class="placeholder">ICD codes will appear here...</p>
+                                </div>
+                            </div>
+                            <div class="codes-section">
+                                <h4><i class="fas fa-procedures"></i> CPT Codes</h4>
+                                <div class="codes-list" id="cpt-codes">
+                                    <p class="placeholder">CPT codes will appear here...</p>
+                                </div>
+                            </div>
+                            <div class="codes-section">
+                                <h4><i class="fas fa-code-branch"></i> SNOMED Codes</h4>
+                                <div class="codes-list" id="snomed-codes">
+                                    <p class="placeholder">SNOMED codes will appear here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Actions -->
+            <div class="results-actions">
+                <button class="btn btn-secondary" id="new-recording">
+                    <i class="fas fa-plus"></i>
+                    New Recording
+                </button>
+                <button class="btn btn-primary" id="export-results">
+                    <i class="fas fa-download"></i>
+                    Export Results
+                </button>
+            </div>
+        </main>
+
+        <!-- Settings Modal -->
+        <div class="modal" id="settings-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-cog"></i> Settings</h3>
+                    <button class="modal-close" id="close-settings">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>Backend URL</label>
+                        <input type="text" id="backend-url" readonly>
+                        <button class="btn btn-secondary btn-sm" id="test-connection">
+                            <i class="fas fa-link"></i> Test Connection
+                        </button>
+                    </div>
+                    <div class="setting-group">
+                        <label>Auto-start Backend</label>
+                        <input type="checkbox" id="auto-start-backend" checked>
+                    </div>
+                    <div class="setting-group">
+                        <label>Whisper Model</label>
+                        <select id="whisper-model">
+                            <option value="base.en">Base (English)</option>
+                            <option value="small.en">Small (English)</option>
+                            <option value="medium.en">Medium (English)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="restart-backend-btn">
+                        <i class="fas fa-restart"></i> Restart Backend
+                    </button>
+                    <button class="btn btn-primary" id="save-settings">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toast-container"></div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html> 

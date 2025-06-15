@@ -1,0 +1,6 @@
+llm:
+  api_key: "2ZKN48Y-F1M4D6T-GBX3F4K-DQFMEP7"
+  base_url: "http://localhost:3001/api/v1"
+  workspace_slug: "qc"
+  stream: true
+  stream_timeout: 60 

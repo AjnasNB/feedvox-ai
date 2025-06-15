@@ -1,0 +1,43 @@
+# Core FastAPI and server
+fastapi==0.115.11
+uvicorn==0.34.0
+python-multipart==0.0.20
+
+# AI and ML models
+openai-whisper==20231117
+torch==2.4.1
+numpy==1.26.4
+soundfile==0.13.1
+sounddevice==0.5.1
+
+# LLM inference
+requests==2.32.3
+httpx==0.28.1
+PyYAML==6.0.2
+
+# Database
+sqlalchemy==2.0.36
+aiosqlite==0.20.0
+
+# Audio processing
+scipy==1.15.2
+audio2numpy==0.1.2
+
+# Data processing
+pandas==2.2.3
+pydantic==2.10.6
+
+# Medical coding and NLP
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.26.0
+sentence-transformers==3.3.1
+
+# Utilities
+tqdm==4.67.1
+python-dateutil==2.9.0.post0
+cryptography==44.0.0
+python-jose[cryptography]==3.3.0
+
+# Development
+pytest==8.3.3
+black==24.10.0 

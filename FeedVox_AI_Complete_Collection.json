@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "feedvox-ai-complete",
+		"name": "FeedVox AI - Complete API Collection",
+		"description": "🎯 COMPLETE TESTING COLLECTION FOR ALL ENDPOINTS\n\n✅ ALL DATA TYPES INCLUDED:\n- form-data for file uploads\n- raw JSON for text data\n- URL parameters for IDs\n- Query parameters for options\n\n🚀 READY TO TEST:\n1. Health & Status checks\n2. File upload with form-data\n3. JSON data with raw body\n4. URL path parameters\n5. Query string parameters\n\n📡 Server: http://localhost:7717\n🏥 Medical Codes: 54,062 loaded\n⚡ NPU Optimized Transcription",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:7717",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🏥 System Health & Status",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["health"]
+						}
+					}
+				},
+				{
+					"name": "Medical Codes Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/medical-codes/stats",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "medical-codes", "stats"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🎵 Audio Transcription (FORM-DATA)",
+			"item": [
+				{
+					"name": "Upload Audio File",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"type": "formdata",
+							"formdata": [
+								{
+									"key": "audio_file",
+									"type": "file",
+									"src": [],
+									"description": "🎵 SELECT YOUR AUDIO FILE HERE!\n\n✅ Click 'Select Files' button\n📁 Sample: ../simple-whisper-transcription-main/sampleaduio/doctor_patient_transcript.wav\n🎵 Formats: .wav .mp3 .m4a .flac .ogg .aac .mp4"
+								},
+								{
+									"key": "language",
+									"value": "en",
+									"type": "text",
+									"description": "🌍 Language code (optional): en, es, fr, de",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transcription/upload",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transcription", "upload"]
+						}
+					}
+				},
+				{
+					"name": "Test Sample Audio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/transcription/test-sample",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "transcription", "test-sample"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📝 Medical Notes (RAW JSON)",
+			"item": [
+				{
+					"name": "Extract Medical Note from Text",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"type": "raw",
+							"raw": "{\n    \"transcript_text\": \"Good morning, Doctor. I've been having some chest pain for the past two days. It started after I was lifting some heavy boxes at work. The pain is mainly in the center of my chest and it gets worse when I take deep breaths or cough. I also feel a bit short of breath sometimes. I have a history of high blood pressure and diabetes, and I'm currently taking Lisinopril ten milligrams daily and Metformin five hundred milligrams twice daily. I'm allergic to Penicillin, it gives me a rash. I used to smoke but quit about five years ago. I drink occasionally, maybe a beer or two on weekends. My father had heart problems, and my mother has diabetes as well. When the doctor examined me, my blood pressure was one forty over ninety, heart rate was seventy-two, and I was breathing normally with an oxygen saturation of ninety-eight percent on room air. The doctor said I appeared comfortable and alert. My heart rate was regular, lungs were clear when listening with the stethoscope, but there was some tenderness when pressing on my chest wall. The doctor thinks this is likely muscle pain from lifting, but wants to do an EKG and check some blood work to make sure it's not heart-related. The plan is to take some anti-inflammatory medication for the pain and follow up in two days if it doesn't get better.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes/extract",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notes", "extract"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "📋 Medical Notes Management (URL PARAMS)",
+			"item": [
+				{
+					"name": "Get Medical Note by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes/YOUR_NOTE_ID_HERE?include_codes=true",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notes", "YOUR_NOTE_ID_HERE"],
+							"query": [
+								{
+									"key": "include_codes",
+									"value": "true",
+									"description": "✅ Include medical codes in response"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "List All Medical Notes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notes/?include_codes=true&limit=10&offset=0",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notes", ""],
+							"query": [
+								{
+									"key": "include_codes",
+									"value": "true",
+									"description": "✅ Include medical codes"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "📊 Max results"
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "📄 Skip results"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "🔍 Medical Codes Search (QUERY PARAMS)",
+			"item": [
+				{
+					"name": "Search ICD Codes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/medical-codes/icd/search?query=chest pain&limit=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "medical-codes", "icd", "search"],
+							"query": [
+								{
+									"key": "query",
+									"value": "chest pain",
+									"description": "🔍 Search term for ICD codes"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "📊 Max results"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Search CPT Codes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/medical-codes/cpt/search?query=office visit&limit=5",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "medical-codes", "cpt", "search"],
+							"query": [
+								{
+									"key": "query",
+									"value": "office visit",
+									"description": "🔍 Search term for CPT codes"
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"description": "📊 Max results"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+} 
